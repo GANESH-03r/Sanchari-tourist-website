@@ -1,0 +1,328 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Place Details – Sanchari</title>
+    <link rel="stylesheet" href="aboutPalceStyles.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Montserrat:wght@300;400;500;600&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <!-- HEADER -->
+    <header>
+      <a href="sturcture.html" class="logo-text">Sanchari</a>
+      <button class="back-btn" onclick="history.back()">← Back</button>
+    </header>
+
+    <!-- HERO IMAGE (shown after load) -->
+    <div class="hero-section" id="hero-wrapper" style="display: none">
+      <img id="hero-img" src="" alt="Place Hero" />
+      <div class="hero-overlay"></div>
+      <div class="hero-text">
+        <h1 id="hero-title">Loading...</h1>
+        <span class="hero-badge" id="hero-state">India</span>
+      </div>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="place-content">
+      <div class="content-wrapper">
+        <!-- INFO GRID: Description + Booking -->
+        <div class="info-grid">
+          <!-- LEFT: Description -->
+          <div class="place-description fade-up">
+            <h2>About this Place</h2>
+            <p id="desc-text"></p>
+            <p id="desc-extra"></p>
+            <div class="tags" id="tags-container"></div>
+          </div>
+
+          <!-- RIGHT: Booking Card -->
+          <div class="booking-card fade-up">
+            <h3 id="card-name">Place Name</h3>
+            <div class="price-big" id="card-price">₹0</div>
+            <div class="price-note">per person · taxes included</div>
+            <div class="divider"></div>
+            <div class="info-row">
+              <span>📅 Best Time</span>
+              <span id="card-besttime">—</span>
+            </div>
+            <div class="info-row">
+              <span>⏱ Duration</span>
+              <span id="card-duration">—</span>
+            </div>
+            <div class="info-row">
+              <span>🌡 Climate</span>
+              <span id="card-climate">—</span>
+            </div>
+            <div class="info-row">
+              <span>⭐ Rating</span>
+              <span id="card-rating">—</span>
+            </div>
+            <div class="divider"></div>
+            <button class="book-now-btn" onclick="handleBooking()">
+              Book Now
+            </button>
+            <button class="wishlist-btn" onclick="handleWishlist()">
+              ♡ Save to Wishlist
+            </button>
+          </div>
+        </div>
+
+        <!-- IMAGE GALLERY -->
+        <div class="fade-up">
+          <h2 class="section-title">Photo Gallery</h2>
+          <div class="gallery-grid" id="gallery-grid"></div>
+        </div>
+
+        <!-- MAP SECTION -->
+        <div class="map-section fade-up">
+          <h2 class="section-title">Location</h2>
+          <div class="map-container" id="map-container">
+            <span style="font-size: 2rem">🗺️</span>
+            <span>Map loading...</span>
+          </div>
+          <div class="map-info">
+            <div class="map-info-item">
+              <span class="map-icon">📍</span><span id="map-address">—</span>
+            </div>
+            <div class="map-info-item">
+              <span class="map-icon">✈️</span><span id="map-nearest">—</span>
+            </div>
+            <div class="map-info-item">
+              <span class="map-icon">🚆</span><span id="map-train">—</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <footer>&copy; 2026 Sanchari. All rights reserved.</footer>
+    <div id="toast"></div>
+
+    <script>
+      // ── RAW PLACE DATA ───────────────────────────────────────
+      const PLACES_DATA = {
+        "golden-temple": {
+          name: "Golden Temple",
+          state: "Punjab",
+          description:
+            "The Harmandir Sahib, known as the Golden Temple, is the holiest shrine of Sikhism, located in the heart of Amritsar. Its stunning golden facade reflects beautifully in the surrounding sacred pool called the Amrit Sarovar.",
+          extra:
+            "Millions of pilgrims and tourists visit annually to experience its spiritual calm, free community kitchen (langar), and breathtaking architecture that glows magnificently at sunrise and sunset.",
+          price: "₹Free Entry",
+          bestTime: "Oct – Mar",
+          duration: "2–3 Hours",
+          climate: "Semi-arid",
+          rating: "⭐ 4.9 / 5",
+          tags: ["Spiritual", "Heritage", "Architecture", "Sikhism", "Punjab"],
+          mapQuery: "Golden+Temple+Amritsar",
+          address: "Golden Temple Rd, Amritsar, Punjab 143006",
+          nearestAirport: "Sri Guru Ram Dass Jee Airport (30 min)",
+          nearestTrain: "Amritsar Junction (2 km)",
+          gallery: [
+            "https://images.unsplash.com/photo-1588416936097-41850ab3d86d?w=800&auto=format&fit=crop",
+            "https://images.unsplash.com/photo-1514222134-b57cbb8ce073?w=800&auto=format&fit=crop",
+            "https://images.unsplash.com/photo-1609920658906-8223bd289001?w=800&auto=format&fit=crop",
+            "https://images.unsplash.com/photo-1567157577867-05ccb1388e66?w=800&auto=format&fit=crop",
+            "https://images.unsplash.com/photo-1597074866923-dc0589150358?w=800&auto=format&fit=crop",
+            "https://images.unsplash.com/photo-1580130544977-b4e4b9c7c6c1?w=800&auto=format&fit=crop",
+          ],
+          heroImage:
+            "https://images.unsplash.com/photo-1588416936097-41850ab3d86d?w=1400&auto=format&fit=crop",
+        },
+        "kerala-backwater": {
+          name: "Kerala Backwaters",
+          state: "Kerala",
+          description:
+            "The Kerala Backwaters are a network of interconnected canals, rivers, lakes and inlets formed by more than 900 km of waterways. A houseboat cruise here is one of India's most iconic travel experiences.",
+          extra:
+            "Glide past lush paddy fields, coconut groves, and quaint villages on a traditional kettuvallam (houseboat) while enjoying authentic Kerala cuisine and sunsets over still waters.",
+          price: "₹2,999",
+          bestTime: "Nov – Feb",
+          duration: "1–3 Days",
+          climate: "Tropical",
+          rating: "⭐ 4.8 / 5",
+          tags: ["Nature", "Houseboat", "Scenic", "Kerala", "Waterways"],
+          mapQuery: "Alleppey+Backwaters+Kerala",
+          address: "Alappuzha (Alleppey), Kerala 688001",
+          nearestAirport: "Cochin International Airport (85 km)",
+          nearestTrain: "Alappuzha Railway Station (4 km)",
+          gallery: [
+            "https://images.unsplash.com/photo-1602216056096-3b40cc0c9944?w=800&auto=format&fit=crop",
+            "https://images.unsplash.com/photo-1559592413-7cec4d0cae2b?w=800&auto=format&fit=crop",
+            "https://images.unsplash.com/photo-1570168007204-dfb528c6958f?w=800&auto=format&fit=crop",
+            "https://images.unsplash.com/photo-1593693397690-362cb9666fc2?w=800&auto=format&fit=crop",
+            "https://images.unsplash.com/photo-1580889291051-bc8b89c8f8d4?w=800&auto=format&fit=crop",
+            "https://images.unsplash.com/photo-1616430447564-404c1f5c26ef?w=800&auto=format&fit=crop",
+          ],
+          heroImage:
+            "https://images.unsplash.com/photo-1602216056096-3b40cc0c9944?w=1400&auto=format&fit=crop",
+        },
+        "qutub-minar": {
+          name: "Qutub Minar",
+          state: "Delhi",
+          description:
+            "The Qutub Minar is a soaring 73-metre minaret built in 1193 by Qutb ud-Din Aibak. A UNESCO World Heritage Site, it is the tallest brick minaret in the world and a masterpiece of early Indo-Islamic architecture.",
+          extra:
+            "The complex includes the Iron Pillar of Delhi, Quwwat-ul-Islam Mosque, and several other ancient monuments that narrate the story of Delhi's earliest Islamic rulers.",
+          price: "₹40",
+          bestTime: "Oct – Mar",
+          duration: "2–3 Hours",
+          climate: "Semi-arid",
+          rating: "⭐ 4.6 / 5",
+          tags: ["Heritage", "UNESCO", "Architecture", "History", "Delhi"],
+          mapQuery: "Qutub+Minar+Delhi",
+          address: "Mehrauli, New Delhi, Delhi 110030",
+          nearestAirport: "Indira Gandhi International Airport (14 km)",
+          nearestTrain: "Qutab Minar Metro Station (0.5 km)",
+          gallery: [
+            "https://images.unsplash.com/photo-1548013146-72479768bada?w=800&auto=format&fit=crop",
+            "https://images.unsplash.com/photo-1564507592333-c60657eea523?w=800&auto=format&fit=crop",
+            "https://images.unsplash.com/photo-1587474260584-136574528ed5?w=800&auto=format&fit=crop",
+            "https://images.unsplash.com/photo-1555952494-efd681c7e3f9?w=800&auto=format&fit=crop",
+            "https://images.unsplash.com/photo-1561361513-2d000a50f0dc?w=800&auto=format&fit=crop",
+            "https://images.unsplash.com/photo-1598091383021-15ddea10925d?w=800&auto=format&fit=crop",
+          ],
+          heroImage:
+            "https://images.unsplash.com/photo-1548013146-72479768bada?w=1400&auto=format&fit=crop",
+        },
+        tajmahal: {
+          name: "Taj Mahal",
+          state: "Uttar Pradesh",
+          description:
+            "The Taj Mahal is an ivory-white marble mausoleum on the right bank of the Yamuna river in Agra, commissioned in 1632 by Mughal emperor Shah Jahan to house the tomb of his beloved wife Mumtaz Mahal.",
+          extra:
+            "One of the Seven Wonders of the World and a UNESCO World Heritage Site, the Taj Mahal is the pinnacle of Mughal architecture, blending Islamic, Persian, and Indian styles in perfect symmetry.",
+          price: "₹1,100",
+          bestTime: "Oct – Mar",
+          duration: "3–4 Hours",
+          climate: "Semi-arid",
+          rating: "⭐ 5.0 / 5",
+          tags: ["Wonder", "UNESCO", "Mughal", "Romance", "Agra"],
+          mapQuery: "Taj+Mahal+Agra",
+          address: "Dharmapuri, Forest Colony, Tajganj, Agra, UP 282001",
+          nearestAirport: "Agra Airport (12 km)",
+          nearestTrain: "Agra Cantonment Railway Station (6 km)",
+          gallery: [
+            "https://images.unsplash.com/photo-1564507592333-c60657eea523?w=800&auto=format&fit=crop",
+            "https://images.unsplash.com/photo-1587474260584-136574528ed5?w=800&auto=format&fit=crop",
+            "https://images.unsplash.com/photo-1548013146-72479768bada?w=800&auto=format&fit=crop",
+            "https://images.unsplash.com/photo-1524492412937-b28074a5d7da?w=800&auto=format&fit=crop",
+            "https://images.unsplash.com/photo-1598091383021-15ddea10925d?w=800&auto=format&fit=crop",
+            "https://images.unsplash.com/photo-1570168007204-dfb528c6958f?w=800&auto=format&fit=crop",
+          ],
+          heroImage:
+            "https://images.unsplash.com/photo-1524492412937-b28074a5d7da?w=1400&auto=format&fit=crop",
+        },
+      };
+
+      // ── READ PLACE ID FROM URL ───────────────────────────────
+      const params = new URLSearchParams(window.location.search);
+      const placeId = params.get("place") || "golden-temple";
+
+      // ── LOAD DIRECTLY FROM RAW DATA ─────────────────────────
+      const data = PLACES_DATA[placeId] || PLACES_DATA["golden-temple"];
+      renderPage(data);
+
+      // ── RENDER PAGE WITH DATA ────────────────────────────────
+      function renderPage(data) {
+        // Hero
+        document.getElementById("hero-img").src =
+          data.heroImage || data.gallery?.[0] || "";
+        document.getElementById("hero-title").textContent = data.name;
+        document.getElementById("hero-state").textContent =
+          `📍 ${data.state}, India`;
+        document.getElementById("hero-wrapper").style.display = "block";
+        document.title = `${data.name} – Sanchari`;
+
+        // Description
+        document.getElementById("desc-text").textContent = data.description;
+        document.getElementById("desc-extra").textContent = data.extra || "";
+
+        // Tags
+        const tagsEl = document.getElementById("tags-container");
+        (data.tags || []).forEach((tag) => {
+          const span = document.createElement("span");
+          span.className = "tag";
+          span.textContent = tag;
+          tagsEl.appendChild(span);
+        });
+
+        // Booking card
+        document.getElementById("card-name").textContent = data.name;
+        document.getElementById("card-price").textContent = data.price || "₹—";
+        document.getElementById("card-besttime").textContent =
+          data.bestTime || "—";
+        document.getElementById("card-duration").textContent =
+          data.duration || "—";
+        document.getElementById("card-climate").textContent =
+          data.climate || "—";
+        document.getElementById("card-rating").textContent = data.rating || "—";
+
+        // Gallery
+        const gallery = document.getElementById("gallery-grid");
+        (data.gallery || []).forEach((src, i) => {
+          const div = document.createElement("div");
+          div.className = "gallery-img";
+          div.style.animationDelay = `${i * 0.1}s`;
+          div.innerHTML = `<img src="${src}" alt="Gallery ${i + 1}" loading="lazy"/>`;
+          div.onclick = () => openLightbox(src);
+          gallery.appendChild(div);
+        });
+
+        // Map
+        const mapQuery =
+          data.mapQuery || encodeURIComponent(data.name + " India");
+        document.getElementById("map-container").innerHTML = `
+      <iframe
+        src="https://maps.google.com/maps?q=${mapQuery}&output=embed&z=14"
+        allowfullscreen loading="lazy">
+      </iframe>`;
+        document.getElementById("map-address").textContent =
+          data.address || "—";
+        document.getElementById("map-nearest").textContent =
+          data.nearestAirport || "—";
+        document.getElementById("map-train").textContent =
+          data.nearestTrain || "—";
+
+        document.getElementById("place-content").style.display = "block";
+      }
+
+      // ── LIGHTBOX ─────────────────────────────────────────────
+      function openLightbox(src) {
+        const lb = document.createElement("div");
+        lb.style.cssText = `
+      position:fixed;inset:0;background:rgba(0,0,0,0.9);
+      z-index:9999;display:flex;align-items:center;justify-content:center;cursor:zoom-out;
+    `;
+        lb.innerHTML = `<img src="${src}" style="max-width:90%;max-height:90vh;border-radius:12px;box-shadow:0 20px 60px rgba(0,0,0,0.5)"/>`;
+        lb.onclick = () => lb.remove();
+        document.body.appendChild(lb);
+      }
+
+      // ── BUTTONS ──────────────────────────────────────────────
+      function handleBooking() {
+        const name = document.getElementById("card-name").textContent;
+        showToast(`✅ Booking started for ${name}! Redirecting to payment...`);
+      }
+      function handleWishlist() {
+        const name = document.getElementById("card-name").textContent;
+        showToast(`♡ ${name} saved to your Wishlist!`);
+      }
+
+      // ── TOAST ────────────────────────────────────────────────
+      function showToast(msg) {
+        const t = document.getElementById("toast");
+        t.textContent = msg;
+        t.classList.add("show");
+        setTimeout(() => t.classList.remove("show"), 3500);
+      }
+
+      // ── INIT ─────────────────────────────────────────────────
+    </script>
+  </body>
+</html>

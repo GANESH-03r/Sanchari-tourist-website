@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Packages – Sanchari</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --bg:#FAFAFA; --text:#263238; --primary:#546E7A;
+      --primary-light:#78909C; --accent:#E17055; --white:#fff;
+      --shadow:0 10px 30px rgba(0,0,0,0.10);
+      --shadow-hover:0 18px 40px rgba(0,0,0,0.18);
+    }
+    *{margin:0;padding:0;box-sizing:border-box;}
+    body{font-family:'Montserrat',sans-serif;background:var(--bg);color:var(--text);}
+    h1,h2,h3,h4{font-family:'Playfair Display',serif;}
+    a{text-decoration:none;color:inherit;}
+    ul{list-style:none;}
+
+    header{
+      display:flex;justify-content:space-between;align-items:center;
+      padding:18px 5%;background:rgba(250,250,250,0.97);
+      position:sticky;top:0;z-index:1000;
+      box-shadow:0 2px 20px rgba(0,0,0,0.08);
+    }
+    .logo-text{font-family:'Playfair Display',serif;font-size:2rem;font-weight:700;}
+    nav ul{display:flex;gap:30px;align-items:center;}
+    nav a{font-size:0.95rem;font-weight:600;color:#546E7A;transition:color 0.2s;}
+    nav a:hover,nav a.active{color:#263238;border-bottom:2px solid #263238;padding-bottom:2px;}
+    .login-btn{
+      background:linear-gradient(135deg,#78909C,#546E7A);
+      color:white;padding:10px 25px;border-radius:50px;
+      font-weight:500;border:none;cursor:pointer;
+    }
+
+    .page-hero{
+      background:linear-gradient(135deg,#546E7A,#263238);
+      color:white;text-align:center;padding:80px 5% 60px;
+      position:relative;overflow:hidden;
+    }
+    .page-hero::before{
+      content:'';position:absolute;inset:0;
+      background:url('https://images.unsplash.com/photo-1551632811-561732d1e306?w=1400&auto=format&fit=crop') center/cover;
+      opacity:0.15;
+    }
+    .page-hero h1{font-size:3.2rem;margin-bottom:14px;position:relative;}
+    .page-hero p{font-size:1.1rem;color:rgba(255,255,255,0.8);position:relative;}
+
+    .filter-bar{
+      display:flex;gap:16px;align-items:center;flex-wrap:wrap;
+      padding:28px 5%;background:white;
+      box-shadow:0 4px 20px rgba(0,0,0,0.06);
+    }
+    .filter-btn{
+      padding:11px 22px;border-radius:50px;border:2px solid #ECEFF1;
+      background:white;font-size:0.85rem;font-weight:600;
+      color:var(--primary);cursor:pointer;transition:all 0.2s;
+      font-family:'Montserrat',sans-serif;
+    }
+    .filter-btn:hover,.filter-btn.active{background:var(--primary);color:white;border-color:var(--primary);}
+
+    .packages-section{padding:50px 5% 80px;}
+    .section-label{font-size:1.6rem;margin-bottom:36px;padding-bottom:12px;border-bottom:2px solid #ECEFF1;}
+
+    .pkg-grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fill,minmax(300px,1fr));
+      gap:32px;
+    }
+
+    .pkg-card{
+      background:white;border-radius:20px;overflow:hidden;
+      box-shadow:var(--shadow);transition:transform 0.3s,box-shadow 0.3s;
+      opacity:0;transform:translateY(24px);
+      animation:fadeUp 0.5s ease forwards;
+    }
+    .pkg-card:hover{transform:translateY(-8px);box-shadow:var(--shadow-hover);}
+    @keyframes fadeUp{to{opacity:1;transform:translateY(0);}}
+
+    .pkg-img{position:relative;height:220px;overflow:hidden;}
+    .pkg-img img{width:100%;height:100%;object-fit:cover;transition:transform 0.5s;}
+    .pkg-card:hover .pkg-img img{transform:scale(1.07);}
+    .pkg-badge{
+      position:absolute;top:14px;left:14px;
+      background:rgba(255,255,255,0.92);backdrop-filter:blur(6px);
+      padding:4px 12px;border-radius:50px;
+      font-size:0.75rem;font-weight:700;color:var(--primary);
+    }
+    .pkg-duration{
+      position:absolute;bottom:14px;right:14px;
+      background:rgba(0,0,0,0.55);backdrop-filter:blur(6px);
+      padding:4px 10px;border-radius:50px;
+      font-size:0.78rem;font-weight:600;color:white;
+    }
+
+    .pkg-body{padding:22px;}
+    .pkg-body h3{font-size:1.25rem;margin-bottom:8px;}
+    .pkg-desc{font-size:0.85rem;color:#78909C;line-height:1.7;margin-bottom:16px;}
+
+    .pkg-highlights{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:18px;}
+    .highlight{
+      background:#F0F4F8;color:var(--primary);
+      padding:4px 12px;border-radius:50px;font-size:0.78rem;font-weight:600;
+    }
+
+    .pkg-footer{
+      display:flex;justify-content:space-between;align-items:center;
+      padding-top:16px;border-top:1px solid #F0F4F8;
+    }
+    .pkg-price{font-size:1.1rem;font-weight:700;color:var(--accent);}
+    .pkg-price span{font-size:0.75rem;font-weight:400;color:#90A4AE;}
+    .book-btn{
+      background:linear-gradient(135deg,#78909C,#546E7A);
+      color:white;padding:9px 20px;border-radius:50px;
+      font-size:0.85rem;font-weight:600;border:none;cursor:pointer;
+      font-family:'Montserrat',sans-serif;transition:transform 0.2s,box-shadow 0.2s;
+    }
+    .book-btn:hover{transform:translateY(-2px);box-shadow:0 6px 16px rgba(84,110,122,0.35);}
+
+    /* Toast */
+    #toast{
+      position:fixed;bottom:30px;left:50%;
+      transform:translateX(-50%) translateY(20px);
+      background:var(--primary);color:white;
+      padding:14px 28px;border-radius:50px;
+      font-size:0.9rem;font-weight:500;z-index:9999;
+      opacity:0;transition:all 0.4s ease;white-space:nowrap;
+    }
+    #toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+
+    footer{background:#607D8B;color:#B0BEC5;text-align:center;padding:24px;font-size:0.85rem;}
+    @media(max-width:750px){nav{display:none;}}
+  </style>
+</head>
+<body>
+
+<header>
+  <a href="sturcture.html" class="logo-text">Sanchari</a>
+  <nav>
+    <ul>
+      <li><a href="sturcture.html#home">Home</a></li>
+      <li><a href="destination.html">Destination</a></li>
+      <li><a href="packages.html" class="active">Packages</a></li>
+      <li><a href="about-us.html">About-Us</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+  </nav>
+  <button class="login-btn">Login</button>
+</header>
+
+<div class="page-hero">
+  <h1>Our Packages</h1>
+  <p>Handcrafted travel experiences for every kind of explorer</p>
+</div>
+
+<div class="filter-bar">
+  <button class="filter-btn active" data-filter="all">All</button>
+  <button class="filter-btn" data-filter="Adventure">Adventure</button>
+  <button class="filter-btn" data-filter="Family">Family</button>
+  <button class="filter-btn" data-filter="Wellness">Wellness</button>
+  <button class="filter-btn" data-filter="Romance">Romance</button>
+  <button class="filter-btn" data-filter="Cultural">Cultural</button>
+</div>
+
+<div class="packages-section">
+  <h2 class="section-label">All Packages</h2>
+  <div class="pkg-grid" id="pkg-grid"></div>
+</div>
+
+<footer>&copy; 2026 Sanchari. All rights reserved.</footer>
+<div id="toast"></div>
+
+<script>
+  const PACKAGES = [
+    {
+      name:'Mountain Trekking',
+      category:'Adventure',
+      price:'₹4,999',
+      duration:'5 Days',
+      desc:'Conquer majestic Himalayan trails with expert guides. Includes camping, meals, and safety gear.',
+      highlights:['Camping','Expert Guide','Meals Included','Safety Gear'],
+      image:'https://images.unsplash.com/photo-1551632811-561732d1e306?w=600&auto=format&fit=crop',
+    },
+    {
+      name:'Family Safari',
+      category:'Family',
+      price:'₹9,999',
+      duration:'4 Days',
+      desc:'Spot tigers, elephants, and exotic wildlife in India\'s finest national parks with family-friendly stays.',
+      highlights:['Wildlife Safari','Family Rooms','Kid Activities','3 Meals/Day'],
+      image:'https://images.unsplash.com/photo-1535581652167-3d6b98c5354b?w=600&auto=format&fit=crop',
+    },
+    {
+      name:'Wellness Retreat',
+      category:'Wellness',
+      price:'₹7,499',
+      duration:'6 Days',
+      desc:'Rejuvenate your mind and body with yoga, meditation, and Ayurvedic treatments in serene Kerala.',
+      highlights:['Yoga Sessions','Ayurveda','Meditation','Spa Included'],
+      image:'https://images.unsplash.com/photo-1545205597-3d9d02c29597?w=600&auto=format&fit=crop',
+    },
+    {
+      name:'Honeymoon Bliss',
+      category:'Romance',
+      price:'₹12,499',
+      duration:'7 Days',
+      desc:'A dreamy romantic escape across Kerala backwaters, Munnar hills, and a private beach resort.',
+      highlights:['Private Villa','Candlelight Dinner','Couples Spa','Boat Ride'],
+      image:'https://images.unsplash.com/photo-1515934751635-c81c6bc9a2d8?w=600&auto=format&fit=crop',
+    },
+    {
+      name:'Heritage Trail',
+      category:'Cultural',
+      price:'₹6,999',
+      duration:'8 Days',
+      desc:'Explore India\'s golden triangle — Delhi, Agra, and Jaipur — with expert heritage guides.',
+      highlights:['Heritage Sites','Expert Guide','Luxury Hotels','All Transfers'],
+      image:'https://images.unsplash.com/photo-1524492412937-b28074a5d7da?w=600&auto=format&fit=crop',
+    },
+    {
+      name:'Backpacker Special',
+      category:'Adventure',
+      price:'₹2,499',
+      duration:'10 Days',
+      desc:'Budget-friendly adventure through Himachal Pradesh with hostel stays and local food experiences.',
+      highlights:['Hostel Stay','Local Food','Trekking','Flexible Itinerary'],
+      image:'https://images.unsplash.com/photo-1626621341517-bbf3d9990a23?w=600&auto=format&fit=crop',
+    },
+  ];
+
+  let activeFilter = 'all';
+
+  function renderPackages() {
+    const grid = document.getElementById('pkg-grid');
+    grid.innerHTML = '';
+    const filtered = activeFilter === 'all'
+      ? PACKAGES
+      : PACKAGES.filter(p => p.category === activeFilter);
+
+    filtered.forEach((p, i) => {
+      const card = document.createElement('div');
+      card.className = 'pkg-card';
+      card.style.animationDelay = `${i * 0.08}s`;
+      card.innerHTML = `
+        <div class="pkg-img">
+          <img src="${p.image}" alt="${p.name}" loading="lazy"/>
+          <span class="pkg-badge">${p.category}</span>
+          <span class="pkg-duration">⏱ ${p.duration}</span>
+        </div>
+        <div class="pkg-body">
+          <h3>${p.name}</h3>
+          <p class="pkg-desc">${p.desc}</p>
+          <div class="pkg-highlights">
+            ${p.highlights.map(h => `<span class="highlight">✓ ${h}</span>`).join('')}
+          </div>
+          <div class="pkg-footer">
+            <div class="pkg-price">${p.price} <span>/ person</span></div>
+            <button class="book-btn" onclick="bookPackage('${p.name}','${p.price}')">Book Now</button>
+          </div>
+        </div>`;
+      grid.appendChild(card);
+    });
+  }
+
+  document.querySelectorAll('.filter-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      activeFilter = btn.dataset.filter;
+      renderPackages();
+    });
+  });
+
+  function bookPackage(name, price) {
+    showToast(`✅ Booking started for ${name} — ${price}`);
+  }
+
+  function showToast(msg) {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 3500);
+  }
+
+  renderPackages();
+</script>
+</body>
+</html>

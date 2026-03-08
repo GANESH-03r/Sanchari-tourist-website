@@ -1,0 +1,280 @@
+:root{
+    --bg-color : #FAFAFA;
+    --text-color: #263238;
+    --primary-btn-start: #78909C;
+    --primary-btn-end: #546E7A;
+    --footer-bg: #607D8B;
+    --accent-glow: linear-gradient(135deg, #FFF59D, #80CBC4);
+    --white : #fff;
+    --shadow-soft: 0 10px 30px rgba(0,0,0,0.9);
+    --shadow-hover: 0 15px 40px rgba(0,0,0,0.2);
+    --primary-btn-start: #78909C;
+     --primary-btn-end: #546E7A;
+}
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body{
+    font-family: 'Montserrat', sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    line-height: 1.6;
+    overflow-x: hidden;
+}
+
+h1, h2, h3, .logo-text{
+    font-family: 'playfair Display', serif;
+}
+
+a{
+    text-decoration: none;
+    color: inherit;
+    text-decoration: 0.3s;
+}
+ul{
+    list-style: none; 
+}
+
+header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 5%;
+    background-color: rgba(250, 250, 250, 0.95);
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 2px 20px rgba(0,0,0,0.2);
+}
+
+.logo{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.logo-text{
+    font-size: 2.5rem;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    color: var(--text-color);
+}
+
+nav ul{
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+nav a{
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #546E7A;
+}
+
+nav a:hover{
+    color: #263238;
+}
+
+.login-btn{
+    background: linear-gradient(135deg, var(--primary-btn-start), var(--primary-btn-end));
+    color: white;
+    padding: 10px 25px;
+    border-radius: 50px;
+    font-weight: 500;
+    box-shadow: 0 4px 12px rgba(84, 110, 122, 0.3);
+}
+
+.login-btn:hover{
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(84, 110, 122, 0.4);
+    color: white;
+}
+
+.hero{
+    position: relative;
+    height: 90vh;
+    width: 90%;
+    margin: 20px auto 0;
+    border-radius: 30px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: white;
+}
+.hero-bg{
+    position: absolute;
+    top:  0;
+    bottom: 0;
+    height: 100%;
+    width: 100%;
+    background-image: url('salmen-bejaoui.jpg');
+    background-position: center;
+    background-size: cover;
+    z-index: -1;
+}
+/* ---- GENERAL SECTION TITLE --- */
+
+section{
+    padding: 80px 5%;
+}
+.section-title{
+    text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: 60px;
+    position: relative;
+}
+/*--- GIRD-LAYOUT ---*/
+.gird-container{
+    display: flex;
+    grid-template-columns: repeat(auto, minmax(280px, 1fr));
+    gap: 40px;
+}
+.card{
+    background: var(--white);
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: var(--shadow-soft);
+    transition: var(--shadow-soft);
+    cursor: pointer;
+    width: 450px; 
+}
+.card:hover{
+    transform: translateY(-10px);
+    box-shadow: var(--shadow-hover);
+}
+.card img{
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+.card-content{
+     padding: 20px;
+     text-align: center;
+}
+
+.card h3{
+    font-size: 1.4rem;
+    margin-bottom: 10px;
+    color: var(--text-color);
+}
+
+.card p{
+    font-size: 0.9rem;
+    margin-bottom: 20px;
+    color: #78909C;
+}
+
+.card-btn{
+    font-size: 0.85rem;
+    font-weight: 600;
+    border-bottom: 2px solid transparent;
+    color: var(--primary-btn-end);
+}
+
+.card-btn:hover{
+    border-color: var(--primary-btn-end);
+}
+/* --- SPECTION SECTION ---*/
+/* -- Rounded for images only -- */
+.state-section{
+    background-color: #F0F4F8;;
+}
+.state-card{
+    text-align: center;
+    background: transparent;
+    box-shadow: none;
+}
+
+.state-card:hover{
+    transform: translateY(-5px);
+    box-shadow: none;
+}
+
+.state-card img{
+    border-radius: 20px;
+    height: 200px;
+    width: 100%;
+    object-fit: cover;
+    box-shadow: var(--shadow-soft);
+    margin-bottom: 15px;
+}
+/* -- PACKAGE SECTION STYLING -- */
+
+.price{
+    display: block;
+    margin-top: 10px;
+    font-weight: 700;
+    color: #E17055;
+}
+
+.book-btn{
+    background-color: var(--primary-btn-end);
+    padding: 8px 20px;
+    color: white;
+    font-size: 0.9rem;
+    border-radius: 5px;
+}
+
+.book-btn:hover{
+    background-color: #37474F;
+}
+
+/* -- FOOTER -- */
+
+footer{
+    background-color: var(--footer-bg);
+    color: white;
+    padding: 60px 5% 20px;
+}
+.footer-grid{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 40px;
+    margin-bottom: 60px;
+}
+
+.footer-col h4{
+    margin-bottom: 20px;
+    font-size: 1.2rem;
+}
+
+.footer-col ul li{
+    margin-bottom: 10px;
+}
+
+.footer-col a {
+    color: #CFD8DC;
+    font-weight: 300;
+}
+
+.footer-col a:hover{
+    color: white;
+}
+
+.newsletters{
+    padding: 10px;
+    border-radius: 5px;
+    border: none;
+    margin-bottom: 10px;
+    width: 100%;
+}
+
+.copyright{
+    text-align: center;
+    padding: 10px;
+    border: 1px solid rgba(225, 225, 225, 0.1);
+    font-size: 0.8rem;
+    color: #B0BEC5;
+}
+
+/* Mobile responsive */
+@media (max-width: 750px){
+    .hero h1 { font-size: 2.5rem;}
+    nav{ display: none;}
+}
