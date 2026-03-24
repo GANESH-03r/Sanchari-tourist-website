@@ -64,6 +64,38 @@ const modalHTML = `
     </div>
   </div>
 `;
+const modalOfHTML = `
+  <div id="signIn" style=" display:none; position:fixed; top:0; left:0; width:100%; height:100%;
+  background: rgba(0,0,0,0.5); z-index:9999; align-items:center; justify-content:center;"> 
+    <div style="
+        background:#fff; border-radius:20px; padding:40px; width:90%; max-width:400px;
+        box-shadow:0 20px 60px rgba(0,0,0,0.3); position:relative; text-align: center;
+        ">
+         <button id="sign-close-modal" style="position:absolute; top:15px; right:20px; background:none; border:none;
+           font-size:1.5rem; cursor:pointer; color:#546E7A;">&times;</button>
+        <h2 style="font-family:'Playfair Display',serif; margin-bottom:25px; color:#263238;">Create account</h2>
+        <input id="signIn-userName" type="text" placeholder="User name" style="width:100%; padding:12px 15px; margin-bottom:15px;
+        border:1px solid #ddd; border-radius:10px; font-size:0.95rem; outline:none;"
+        />
+        <input id="signIn-email" type="email" placeholder="Email" style="width:100%; padding:12px 15px; margin-bottom:15px;
+        border:1px solid #ddd; border-radius:10px; font-size:0.95rem; outline:none;
+        "/>
+        <input id="signIn-password" type="password" placeholder="password" style="width:100%; padding:12px 15px; margin-bottom:15px;
+        border:1px solid #ddd; border-radius:10px; font-size:0.95rem; outline:none;
+        "/>
+        <button id="submit-sigIn" style="width:100%; padding:12px; background:linear-gradient(135deg,#78909c,#546E7A);
+        color:white; border:none; border-radius:50px; font-size:1rem; fount-weight:600; cursor:pointer"
+        >Sig In</button>
+        <p id="sigIn-msg" style="margin-top:15px; font-size:0.85rem; color:#E17055;"></p>
+        <div>
+        <div>`;
+
+        // ---- 3.8 USER DATA ----//
+ const USER__DATA = [{userName : 'ganesh',
+  email : 'ganeshbuchupalli@gmail.com',
+  password : 'ganesh675134',
+
+ }];
 document.body.insertAdjacentHTML('beforeend', modalHTML);
 
 const modal = document.getElementById('login-modal');
@@ -85,15 +117,58 @@ document.getElementById('submit-login').addEventListener('click', () => {
   const password = document.getElementById('login-password').value.trim();
   const msg = document.getElementById('login-msg');
   if (!email || !password) {
+  
     msg.textContent = 'Please fill in all fields.';
     msg.style.color = '#E17055';
-  } else {
-    msg.style.color = '#27ae60';
+  }
+  const user = USER__DATA.find(f => f.email === email && f.password === password)
+  if(user)
+  {
+     msg.style.color = '#27ae60';
     msg.textContent = 'Login successful! Welcome to Sanchari 🌍';
     setTimeout(() => { modal.style.display = 'none'; msg.textContent = ''; }, 2000);
   }
+  else {
+    msg.style.color = '#af4419';
+    msg.textContent = 'Incorrcet email or password.Try aagain';
+  }
 });
 
+//───3.1. Sign IN DETAILS─────────────────────
+
+document.body.insertAdjacentHTML('beforeend', modalOfHTML)
+
+const sigInModal = document.getElementById('signIn');
+const signClose = document.getElementById('sign-close-modal');
+const sigInBtn = document.querySelector('.signin-btn');
+
+sigInBtn.addEventListener('click',() => {
+  sigInModal.style.display = 'flex';
+});
+signClose.addEventListener("click",() => {
+  sigInModal.style.display = 'none';
+});
+sigInModal.addEventListener('click', (e) =>{
+ if(e.target === sigInModal) sigInModal.style.display = 'none';
+});
+document.getElementById('submit-sigIn').addEventListener('click', () => {
+  const signUserName = document.getElementById('signIn-userName').value.trim();
+  const signEmail = document.getElementById('signIn-email').value.trim();
+  const signPassword = document.getElementById('signIn-password').value.trim();
+  const signMsg = document.getElementById('sigIn-msg');
+  if(!signEmail || !signPassword || !signUserName )
+  {
+    signMsg.textContent = "Please fill in all fields.";
+    signMsg.style.color = '#E17055';
+  } else {
+    USER__DATA.push({userName : signUserName, email: signEmail, password:signPassword})
+    signMsg.textContent= 'signIn successfull! Welcome to Sanchari 🌏';
+    signMsg.style.color= '#27ae60';
+    setTimeout(() => {sigInModal.style.display = 'none'; signMsg.textContent='';}, 2000);
+  }
+})
+console.log(USER__DATA.length)
+// ---- 3.5 INVOK LOGIN OR SIGNIN MODELS -----//
 // ── 4. VIEW DETAILS → TOAST NOTIFICATION ────
 document.querySelectorAll('.card-btn').forEach(btn => {
   btn.addEventListener('click', function (e) {
@@ -103,7 +178,7 @@ document.querySelectorAll('.card-btn').forEach(btn => {
   });
 });
 
-// ── 5. BOOK NOW BUTTON ────────────────────────
+// ── 5. BOOK NOW BUTTON ─────────────────────
 document.querySelectorAll('.book-btn').forEach(btn => {
   // skip newsletter subscribe button
   if (btn.closest('.newsletters')) return;

@@ -92,6 +92,20 @@ nav a:hover{
     box-shadow: 0 6px 20px rgba(84, 110, 122, 0.4);
     color: white;
 }
+.signin-btn{
+    background: linear-gradient(135deg, var(--primary-btn-start), var(--primary-btn-end));
+    color: white;
+    padding: 10px 25px;
+    border-radius: 50px;
+    font-weight: 500;
+    box-shadow: 0 4px 12px rgba(84, 110, 122, 0.3);
+}
+
+.signin-btn:hover{
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(84, 110, 122, 0.4);
+    color: white;
+}
 
 .hero{
     position: relative;
