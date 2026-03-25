@@ -126,7 +126,7 @@ nav a:hover{
     bottom: 0;
     height: 100%;
     width: 100%;
-    background-image: url('salmen-bejaoui.jpg');
+    background-image: url('../assets/salmen-bejaoui.jpg');
     background-position: center;
     background-size: cover;
     z-index: -1;
@@ -246,28 +246,28 @@ footer{
     color: white;
     padding: 60px 5% 20px;
 }
-.footer-grid{
+.footer-sect{
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     gap: 40px;
     margin-bottom: 60px;
 }
 
-.footer-col h4{
+.footer-sect h4{
     margin-bottom: 20px;
     font-size: 1.2rem;
 }
 
-.footer-col ul li{
+.footer-sect ul li{
     margin-bottom: 10px;
 }
 
-.footer-col a {
+.footer-sect a {
     color: #CFD8DC;
     font-weight: 300;
 }
 
-.footer-col a:hover{
+.footer-sect a:hover{
     color: white;
 }
 
