@@ -1,0 +1,130 @@
+ let DESTINATIONS = [];
+
+      async function loadJSONData(url) {
+        const response = await fetch(url);
+        if (!response.ok) {
+          throw new Error(`Unable to load ${url} (status ${response.status})`);
+        }
+        return response.json();
+      }
+
+      async function initDestinations() {
+        try {
+          DESTINATIONS = await loadJSONData("./data/destinations.json");
+          console.log("Loaded destinations:", DESTINATIONS.length);
+        } catch (error) {
+          console.error("Failed to load destinations:", error);
+          DESTINATIONS = [];
+        }
+
+          renderCards();
+      }
+
+      // ── READ URL PARAMS ──────────────────────────────────────
+      const urlParams = new URLSearchParams(window.location.search);
+      let activeState = urlParams.get("state") || ""; // e.g. "Rajasthan"
+      let activeFilter = "all";
+      let searchQuery = "";
+
+      // Show state banner if state param exists
+      if (activeState) {
+        const banner = document.getElementById("state-banner");
+        banner.classList.add("show");
+        document.getElementById("state-banner-text").textContent =
+          `🗺️ Showing places in ${activeState}`;
+        // Pre-fill search box with state name so user sees it
+        document.getElementById("search-input").value = activeState;
+        searchQuery = activeState.toLowerCase();
+        // Update section label
+        document.querySelector(".section-label").textContent =
+          `Places in ${activeState}`;
+      }
+
+      // ── CLEAR STATE FILTER ───────────────────────────────────
+      function clearStateFilter() {
+        activeState = "";
+        searchQuery = "";
+        document.getElementById("search-input").value = "";
+        document.getElementById("state-banner").classList.remove("show");
+        document.querySelector(".section-label").textContent =
+          "All Destinations";
+        // Remove ?state= from URL without reload
+        history.replaceState(null, "", "destination.html");
+        renderCards();
+      }
+
+      // ── RENDER CARDS ────────────────────────────────────────
+      function renderCards() {
+        const grid = document.getElementById("dest-grid");
+        const noResults = document.getElementById("no-results");
+
+        const filtered = DESTINATIONS.filter((d) => {
+          const matchFilter =
+            activeFilter === "all" || d.category === activeFilter;
+          const matchSearch =
+            !searchQuery ||
+            d.name.toLowerCase().includes(searchQuery) ||
+            d.state.toLowerCase().includes(searchQuery) ||
+            d.desc.toLowerCase().includes(searchQuery);
+          return matchFilter && matchSearch;
+        });
+
+        grid.querySelectorAll(".dest-card").forEach((c) => c.remove());
+        if (filtered.length === 0) {
+          noResults.style.display = "block";
+          document.getElementById("results-count").textContent =
+            "0 destinations";
+          return;
+        }
+
+        noResults.style.display = "none";
+        document.getElementById("results-count").textContent =
+          `${filtered.length} destination${filtered.length > 1 ? "s" : ""}`;
+
+        filtered.forEach((d, i) => {
+          const card = document.createElement("div");
+          card.className = "dest-card";
+          card.style.animationDelay = `${i * 0.08}s`;
+          card.innerHTML = `
+        <div class="dest-card-img">
+          <img src="${d.image}" alt="${d.name}" loading="lazy"/>
+          <span class="dest-badge">${d.category}</span>
+          <span class="dest-rating">${d.rating}</span>
+        </div>
+        <div class="dest-card-body">
+          <h3>${d.name}</h3>
+          <div class="dest-location">📍 ${d.state}, India</div>
+          <p class="dest-desc">${d.desc}</p>
+          <div class="dest-card-footer">
+            <div class="dest-price">${d.price} <span>/ person</span></div>
+            <a href="about-place.html?place=${d.id}" class="view-btn">View Details</a>
+          </div>
+        </div>`;
+          grid.insertBefore(card, noResults);
+        });
+      }
+
+      // ── FILTER BUTTONS ───────────────────────────────────────
+      document.querySelectorAll(".filter-btn").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          document
+            .querySelectorAll(".filter-btn")
+            .forEach((b) => b.classList.remove("active"));
+          btn.classList.add("active");
+          activeFilter = btn.dataset.filter;
+          renderCards();
+        });
+      });
+
+      // ── SEARCH ───────────────────────────────────────────────
+      document.getElementById("search-input").addEventListener("input", (e) => {
+        searchQuery = e.target.value.trim().toLowerCase();
+        activeState = ""; // clear state lock when user types manually
+        document.getElementById("state-banner").classList.remove("show");
+        document.querySelector(".section-label").textContent =
+          "All Destinations";
+        renderCards();
+      });
+
+      // ── INIT ─────────────────────────────────────────────────
+      renderCards();
