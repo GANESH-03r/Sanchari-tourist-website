@@ -1,0 +1,142 @@
+[
+  {
+    "id": "golden-temple",
+    "name": "Golden Temple",
+    "state": "Punjab",
+    "category": "Spiritual",
+    "price": "Free Entry",
+    "rating": "⭐ 4.9",
+    "desc": "The holiest Sikh shrine with a stunning golden facade reflecting in the sacred Amrit Sarovar pool.",
+    "image": "https://images.unsplash.com/photo-1588416936097-41850ab3d86d?w=600&auto=format&fit=crop"
+  },
+  {
+    "id": "kerala-backwater",
+    "name": "Kerala Backwaters",
+    "state": "Kerala",
+    "category": "Nature",
+    "price": "₹2,999",
+    "rating": "⭐ 4.8",
+    "desc": "A serene network of canals and lakes best explored on a traditional houseboat at sunset.",
+    "image": "https://images.unsplash.com/photo-1602216056096-3b40cc0c9944?w=600&auto=format&fit=crop"
+  },
+  {
+    "id": "munnar",
+    "name": "Munnar Hills",
+    "state": "Kerala",
+    "category": "Nature",
+    "price": "₹1,999",
+    "rating": "⭐ 4.7",
+    "desc": "Misty tea-covered hillsides, cool air, and breathtaking valley views in the Western Ghats.",
+    "image": "https://images.unsplash.com/photo-1559592413-7cec4d0cae2b?w=600&auto=format&fit=crop"
+  },
+  {
+    "id": "kovalam",
+    "name": "Kovalam Beach",
+    "state": "Kerala",
+    "category": "Nature",
+    "price": "₹999",
+    "rating": "⭐ 4.5",
+    "desc": "A crescent-shaped beach paradise famous for Ayurvedic resorts and spectacular sunsets.",
+    "image": "https://images.unsplash.com/photo-1570168007204-dfb528c6958f?w=600&auto=format&fit=crop"
+  },
+  {
+    "id": "qutub-minar",
+    "name": "Qutub Minar",
+    "state": "Delhi",
+    "category": "Heritage",
+    "price": "₹40",
+    "rating": "⭐ 4.6",
+    "desc": "The world's tallest brick minaret and a UNESCO World Heritage Site in the heart of Delhi.",
+    "image": "https://images.unsplash.com/photo-1548013146-72479768bada?w=600&auto=format&fit=crop"
+  },
+  {
+    "id": "red-fort",
+    "name": "Red Fort",
+    "state": "Delhi",
+    "category": "Heritage",
+    "price": "₹35",
+    "rating": "⭐ 4.5",
+    "desc": "Magnificent Mughal-era fortress of red sandstone and the site of India's Independence Day.",
+    "image": "https://images.unsplash.com/photo-1587474260584-136574528ed5?w=600&auto=format&fit=crop"
+  },
+  {
+    "id": "tajmahal",
+    "name": "Taj Mahal",
+    "state": "Uttar Pradesh",
+    "category": "Heritage",
+    "price": "₹1,100",
+    "rating": "⭐ 5.0",
+    "desc": "A symbol of eternal love and one of the Seven Wonders of the World built by Emperor Shah Jahan.",
+    "image": "https://images.unsplash.com/photo-1524492412937-b28074a5d7da?w=600&auto=format&fit=crop"
+  },
+  {
+    "id": "hawa-mahal",
+    "name": "Hawa Mahal",
+    "state": "Rajasthan",
+    "category": "Heritage",
+    "price": "₹50",
+    "rating": "⭐ 4.6",
+    "desc": "The iconic Palace of Winds with 953 intricately carved windows overlooking Jaipur's bazaars.",
+    "image": "https://images.unsplash.com/photo-1599661046289-e31897846e41?w=600&auto=format&fit=crop"
+  },
+  {
+    "id": "jaisalmer-fort",
+    "name": "Jaisalmer Fort",
+    "state": "Rajasthan",
+    "category": "Heritage",
+    "price": "₹100",
+    "rating": "⭐ 4.7",
+    "desc": "A living golden fort rising from the Thar Desert — one of the world's largest fully intact forts.",
+    "image": "https://images.unsplash.com/photo-1545389336-cf090694435e?w=600&auto=format&fit=crop"
+  },
+  {
+    "id": "pushkar-lake",
+    "name": "Pushkar Lake",
+    "state": "Rajasthan",
+    "category": "Spiritual",
+    "price": "Free Entry",
+    "rating": "⭐ 4.5",
+    "desc": "A sacred Hindu pilgrimage site surrounding a tranquil lake with 52 bathing ghats.",
+    "image": "https://images.unsplash.com/photo-1477587458883-47145ed94245?w=600&auto=format&fit=crop"
+  },
+  {
+    "id": "valley-of-flowers",
+    "name": "Valley of Flowers",
+    "state": "Himachal Pradesh",
+    "category": "Nature",
+    "price": "₹150",
+    "rating": "⭐ 4.7",
+    "desc": "A UNESCO World Heritage Site blanketed in alpine wildflowers nestled in the Himalayas.",
+    "image": "https://images.unsplash.com/photo-1626621341517-bbf3d9990a23?w=600&auto=format&fit=crop"
+  },
+  {
+    "id": "manali",
+    "name": "Manali",
+    "state": "Himachal Pradesh",
+    "category": "Adventure",
+    "price": "₹3,500",
+    "rating": "⭐ 4.8",
+    "desc": "A paradise for trekkers and adventure lovers surrounded by snow-capped Himalayan peaks.",
+    "image": "https://images.unsplash.com/photo-1551632811-561732d1e306?w=600&auto=format&fit=crop"
+  },
+  {
+    "id": "spiti-valley",
+    "name": "Spiti Valley",
+    "state": "Himachal Pradesh",
+    "category": "Adventure",
+    "price": "₹2,000",
+    "rating": "⭐ 4.8",
+    "desc": "A cold desert mountain valley with ancient monasteries and dramatic high-altitude landscapes.",
+    "image": "https://images.unsplash.com/photo-1580889291051-bc8b89c8f8d4?w=600&auto=format&fit=crop"
+  },
+  {
+    "id": "rann-of-kutch",
+    "name": "Rann of Kutch",
+    "state": "Gujarat",
+    "category": "Nature",
+    "price": "₹100",
+    "rating": "⭐ 4.6",
+    "desc": "The world's largest salt desert turning into a magical white expanse under the full moon.",
+    "image": "https://images.unsplash.com/photo-1545205597-3d9d02c29597?w=600&auto=format&fit=crop"
+  }
+]
