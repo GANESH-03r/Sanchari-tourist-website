@@ -467,12 +467,13 @@
       {
         noResults.style.display = "block";  
         document.getElementById('results-count').textContent = `0 destination`;
+        return;
       }
       else{
         noResults.style.display = "none";
       }
-      console.log("Filtered Destinations:", filteredDestinations); // Debug log
       document.getElementById('results-count').textContent = `${filteredDestinations.length} destinations`;
+
       filteredDestinations.forEach(dest => {
         const card = document.createElement('div');
         card.className = 'dest-card';
@@ -506,9 +507,6 @@
         history.replaceState(null, "", "destination.html");
          renderDestinations();
       }
-        function viewDestination(id){
-          window.location.href = `destination-detail.html?id=${id}`;
-        }
 
         // ----FILTER BUTTONS--------------------
          document.querySelectorAll('.filter-btn').forEach(btn => {

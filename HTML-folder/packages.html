@@ -59,7 +59,7 @@
       font-family:'Montserrat',sans-serif;
     }
     .filter-btn:hover,.filter-btn.active{background:var(--primary);color:white;border-color:var(--primary);}
-
+    .results-count{margin-left:auto;font-size:0.9rem;color:#78909C;}
     .packages-section{padding:50px 5% 80px;}
     .section-label{font-size:1.6rem;margin-bottom:36px;padding-bottom:12px;border-bottom:2px solid #ECEFF1;}
 
@@ -161,10 +161,12 @@
   <button class="filter-btn" data-filter="Wellness">Wellness</button>
   <button class="filter-btn" data-filter="Romance">Romance</button>
   <button class="filter-btn" data-filter="Cultural">Cultural</button>
+  <div class="results-count" id="results-count">0 packages found</div>
 </div>
 
 <div class="packages-section">
   <h2 class="section-label">All Packages</h2>
+
   <div class="pkg-grid" id="pkg-grid"></div>
 </div>
 
@@ -184,7 +186,7 @@
 
   async function initPackages() {
     try {
-      PACKAGES = await loadJSONData("./data/packages.json");
+      PACKAGES = await loadJSONData("../data/packages.json");
     } catch (error) {
       console.error("Failed to load packages:", error);
       PACKAGES = [];
@@ -200,7 +202,8 @@
     const filtered = activeFilter === 'all'
       ? PACKAGES
       : PACKAGES.filter(p => p.category === activeFilter);
-
+    document.querySelector('.section-label').textContent = activeFilter === 'all' ? 'All Packages' : `${activeFilter} Packages`;
+    document.getElementById('results-count').textContent = `${filtered.length} package${filtered.length !== 1 ? 's' : ''} found`;
     filtered.forEach((p, i) => {
       const card = document.createElement('div');
       card.className = 'pkg-card';
