@@ -427,21 +427,115 @@
     <script>
       
       let DESTINATIONS = [];
+      // ----DATA FETCHING----------------------
       async function fetchDestinations() {
         
         const response = await fetch("../data/destinations.json");
         const data = await response.json();
         return data;
-        console.log("Fetched Destinations:", data); // Debug log
       }
       async function initDestination(){
       DESTINATIONS = await fetchDestinations();
       console.log("Initialized Destinations:", DESTINATIONS); // Debug log
-      
+      renderDestinations();
       }
       initDestination();
+     // ----URL PARAMETER HANDLING----------------------
+      const param = new URLSearchParams(window.location.search);
+      let activeState = param.get("state") || "";
+      let searchTerm = "";
+      let activeCategory = "all"; 
+      if(activeState){
+        document.getElementById("state-banner").classList.add("show");
+        document.getElementById("state-banner-text").textContent = `Showing places in ${activeState}`;
+        document.querySelector('.section-label').textContent = `All places in ${activeState}`;
+        document.getElementById('search-input').value = activeState;
+      }
+      // ----RENDERING FUNCTION----------------------
+      function renderDestinations()
+      {
+      const destGrid = document.getElementById('dest-grid');
+      const noResults = document.getElementById('no-results');
+      const filteredDestinations = DESTINATIONS.filter(dest => {
+        const matchesState = activeState ? dest.state.toLowerCase() === activeState.toLowerCase() : true;
+        const matchesSearch = dest.name.toLowerCase().includes(searchTerm.toLowerCase()) || dest.state.toLowerCase().includes(searchTerm.toLowerCase());
+        const matchesCategory = activeCategory === "all" || dest.category === activeCategory;
+        return matchesState && matchesSearch && matchesCategory;
+      });
+      destGrid.querySelectorAll('.dest-card').forEach(card => card.remove());
+      if(filteredDestinations.length ===0)
+      {
+        noResults.style.display = "block";  
+        document.getElementById('results-count').textContent = `0 destination`;
+      }
+      else{
+        noResults.style.display = "none";
+      }
+      console.log("Filtered Destinations:", filteredDestinations); // Debug log
+      document.getElementById('results-count').textContent = `${filteredDestinations.length} destinations`;
+      filteredDestinations.forEach(dest => {
+        const card = document.createElement('div');
+        card.className = 'dest-card';
+        card.innerHTML = `
+          <div class="dest-card-img">
+            <img src="${dest.image}" alt="${dest.name}" />
+            <div class="dest-badge">${dest.category}</div>
+            <div class="dest-rating"> ${dest.rating}</div>
+          </div>
+          <div class="dest-card-body">
+            <h3>${dest.name}</h3>
+            <div class="dest-location">📍 ${dest.location}, ${dest.state}</div>
+            <p class="dest-desc">${dest.desc}</p>
+            <div class="dest-card-footer">
+              <div class="dest-price">₹${dest.price} <span>/ person</span></div>
+              <button class="view-btn" onclick="viewDestination(${dest.id})">View Details</button>
+            </div>
+          </div>
+        `;
+        destGrid.appendChild(card);
+      });
 
-    
+    }
+    // ----STATE FILTER----------------------
+     function clearStateFilter(){
+        activeState = "";
+        searchTerm = "";
+        document.getElementById('state-banner').classList.remove("show");
+        document.querySelector('.section-label').textContent = `All Destinations`;
+        document.getElementById('search-input').value = "";
+        history.replaceState(null, "", "destination.html");
+         renderDestinations();
+      }
+        function viewDestination(id){
+          window.location.href = `destination-detail.html?id=${id}`;
+        }
+
+        // ----FILTER BUTTONS--------------------
+         document.querySelectorAll('.filter-btn').forEach(btn => {
+          btn.addEventListener('click', () => {
+            filterByCategory(btn.dataset.filter);
+          });
+        });
+        function filterByCategory(category){
+          activeCategory = category;
+          document.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.classList.remove('active');
+            if (btn.dataset.filter === category) {
+              btn.classList.add('active');
+            }
+          });
+          renderDestinations();
+        }
+
+        // ----SEARCH INPUT----------------------
+
+        document.getElementById("search-input").addEventListener("input", (e) => {
+          searchTerm = e.target.value.trim().toLowerCase();
+          activeState = ""; // Clear state filter when searching
+          document.getElementById('state-banner').classList.remove("show");
+          document.querySelector('.section-label').textContent = `All Destinations`;
+          renderDestinations();
+        }); 
     </script>
   </body>
 </html>
