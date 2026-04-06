@@ -1,0 +1,44 @@
+[
+  {
+    "id": "kerala",
+    "name": "Kerala",
+    "image": "https://images.unsplash.com/photo-1602216056096-3b40cc0c9944?q=80&w=2670&auto=format&fit=crop",
+    "description": "God's Own Country - Known for backwaters and beaches",
+    "link": "destination.html?state=Kerala"
+  },
+  {
+    "id": "rajasthan",
+    "name": "Rajasthan",
+    "image": "https://images.unsplash.com/photo-1599661046289-e31897846e41?q=80&w=2574&auto=format&fit=crop",
+    "description": "The Land of Kings - Desert palaces and forts",
+    "link": "destination.html?state=Rajasthan"
+  },
+  {
+    "id": "himachal-pradesh",
+    "name": "Himachal Pradesh",
+    "image": "https://images.unsplash.com/photo-1626621341517-bbf3d9990a23?q=80&w=2670&auto=format&fit=crop",
+    "description": "Mountain Paradise - Snow-capped peaks and valleys",
+    "link": "destination.html?state=Himachal Pradesh"
+  },
+  {
+    "id": "delhi",
+    "name": "Delhi",
+    "image": "https://images.unsplash.com/photo-1548013146-72479768bada?q=80&w=2670&auto=format&fit=crop",
+    "description": "Capital City - Historical monuments and culture",
+    "link": "destination.html?state=Delhi"
+  },
+  {
+    "id": "punjab",
+    "name": "Punjab",
+    "image": "https://images.unsplash.com/photo-1588416936097-41850ab3d86d?w=600&auto=format&fit=crop",
+    "description": "Land of Peace - Golden Temple and vibrant culture",
+    "link": "destination.html?state=Punjab"
+  },
+  {
+    "id": "goa",
+    "name": "Goa",
+    "image": "https://images.unsplash.com/photo-1570168007204-dfb528c6958f?w=600&auto=format&fit=crop",
+    "description": "Beach Paradise - Beaches and water sports",
+    "link": "destination.html?state=Goa"
+  }
+]

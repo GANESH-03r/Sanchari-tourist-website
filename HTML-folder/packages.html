@@ -137,15 +137,7 @@
 
 <header>
   <a href="sturcture.html" class="logo-text">Sanchari</a>
-  <nav>
-    <ul>
-      <li><a href="sturcture.html#home">Home</a></li>
-      <li><a href="destination.html">Destination</a></li>
-      <li><a href="packages.html" class="active">Packages</a></li>
-      <li><a href="about-us.html">About-Us</a></li>
-      <li><a href="contact.html">Contact</a></li>
-    </ul>
-  </nav>
+  <div id="header"></div>
   <button class="login-btn">Login</button>
 </header>
 
@@ -172,25 +164,21 @@
 
 <footer>&copy; 2026 Sanchari. All rights reserved.</footer>
 <div id="toast"></div>
-
+<script src="../JS folder/loadcomponent.js"></script>
+<script src="../JS folder/fetch-data.js"></script>
 <script>
   let PACKAGES = [];
 
-  async function loadJSONData(url) {
-    const response = await fetch(url);
-    if (!response.ok) {
-      throw new Error(`Unable to load ${url} (status ${response.status})`);
-    }
-    return response.json();
-  }
+  // async function loadJSONData(url) {
+  //   const response = await fetch(url);
+  //   if (!response.ok) {
+  //     throw new Error(`Unable to load ${url} (status ${response.status})`);
+  //   }
+  //   return response.json();
+  // }
 
   async function initPackages() {
-    try {
-      PACKAGES = await loadJSONData("../data/packages.json");
-    } catch (error) {
-      console.error("Failed to load packages:", error);
-      PACKAGES = [];
-    }
+      PACKAGES = await initData("../data/packages.json");
     renderPackages();
   }
 

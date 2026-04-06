@@ -131,6 +131,15 @@
     </section>
     <footer id="footer"></footer>
     <script src="HomaPagescript.js"></script>
-    <script src="../JS folder/loadcomponent.js"></script>
+    <script src="../js/loadcomponent.js"></script>
+    <script src="../js/fetch-data.js"></script>
+    <script>
+      let DESTINATIONS = [];
+      async function initDestination(){
+      DESTINATIONS = await initData("../data/destinations.json");
+      }
+       initDestination();
+       
+    </script>
   </body>
 </html>
