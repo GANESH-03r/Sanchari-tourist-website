@@ -162,10 +162,10 @@
   <div class="pkg-grid" id="pkg-grid"></div>
 </div>
 
-<footer>&copy; 2026 Sanchari. All rights reserved.</footer>
+<footer id="footer">&copy; 2026 Sanchari. All rights reserved.</footer>
 <div id="toast"></div>
-<script src="../JS folder/loadcomponent.js"></script>
-<script src="../JS folder/fetch-data.js"></script>
+<script src="../js/loadcomponent.js"></script>
+<script type="module" src="../js/main.js"></script>
 <script>
   let PACKAGES = [];
 
@@ -177,10 +177,12 @@
   //   return response.json();
   // }
 
-  async function initPackages() {
-      PACKAGES = await initData("../data/packages.json");
-    renderPackages();
+    function initData() {
+    init("../data/packages.json");
+    console.log("Data initialized");
   }
+  initData();
+  
 
   let activeFilter = 'all';
 
@@ -237,7 +239,6 @@
     setTimeout(() => t.classList.remove('show'), 3500);
   }
 
-  initPackages();
 </script>
 </body>
 </html>

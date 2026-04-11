@@ -134,12 +134,9 @@
     <script src="../js/loadcomponent.js"></script>
     <script src="../js/fetch-data.js"></script>
     <script>
-      let DESTINATIONS = [];
-      async function initDestination(){
-      DESTINATIONS = await initData("../data/destinations.json");
-      }
-       initDestination();
-       
+       function init() {
+        init("../data/places.json");
+       }
     </script>
   </body>
 </html>

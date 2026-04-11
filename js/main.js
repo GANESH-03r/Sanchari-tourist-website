@@ -10,29 +10,30 @@ import { filterButtons, searchRender } from "./UI-layer.js";
     }
     const elements = {
       destGrid: document.getElementById('dest-grid'),
-      noResults: document.getElementById('no-results'),
-       stateBanner: document.getElementById("state-banner"),
-       stateBannerText: document.getElementById("state-banner-text"),
-       sectionLabel: document.querySelector('.section-label'),
-       searchInput: document.getElementById('search-input'),
-       clearStateBtn: document.getElementById('clear-state-btn')
+      noResults: document.getElementById("no-results"),
+      stateBanner: document.getElementById("state-banner"),
+      stateBannerText: document.getElementById("state-banner-text"),
+      sectionLabel: document.querySelector('.section-label'),
+      searchInput: document.getElementById('search-input'),
+      clearStateBtn: document.getElementById('clear-state-btn')
        
     };
     //  initialization function
    async function init(url) { 
     state.destinations = await fetchJSONData(url);
       const param = new URLSearchParams(window.location.search);
-       state.activeState = param.get("state") || "";
+      state.activeState = param.get("state") || "";
       if(state.activeState){
         elements.stateBanner.classList.add("show");
-        elements.stateBannerText.textContent = `Founded ${state.destinations.filter(dest => dest.state === state.activeState).length} places in ${state.activeState}`;
+        elements.stateBannerText.textContent = `Founded ${state.destinations
+        .filter(dest => dest.state === state.activeState).length} places in ${state.activeState}`;
         elements.sectionLabel.textContent = `All places in ${state.activeState}`;
         elements.searchInput.value = state.activeState;
         state.searchQuery = state.activeState.toLowerCase();}
 
     console.log("Fetched Data:", state.destinations); // Debug log
     // filterButtons(state.destinations); 
-    updateUI(state.destinations, state, elements);
+    updateUI();
     filterButtons(filterButtonCheck);
     searchRender(searchDestinations);
     ClearStateFilter();
@@ -52,10 +53,11 @@ import { filterButtons, searchRender } from "./UI-layer.js";
 // Centralized filtering function
   function filterDestinations(state) {
         const filteredDestinations = state.destinations.filter(dest => {
-            const matchesState = state.activeState === "" || dest.state === state.activeState;
-            const matchesCategory = state.activeCategory ==="all"|| dest.category === state.activeCategory;
-            const matchesSearch = dest.name.toLowerCase().includes(state.searchQuery.toLowerCase())|| dest.state.toLowerCase().includes(state.searchQuery.toLowerCase())|| dest.desc.toLowerCase().includes(state.searchQuery.toLowerCase());
-            return matchesState && matchesCategory && matchesSearch;
+        const matchesState = state.activeState === "" || dest.state === state.activeState;
+        const matchesCategory = state.activeCategory ==="all"|| dest.category === state.activeCategory;
+        const matchesSearch = dest.name.toLowerCase().includes(state.searchQuery.toLowerCase())|| dest.state.toLowerCase()
+        .includes(state.searchQuery.toLowerCase())|| dest.desc.toLowerCase().includes(state.searchQuery.toLowerCase());
+        return matchesState && matchesCategory && matchesSearch;
         });
         return filteredDestinations;
   }
